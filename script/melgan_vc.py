@@ -77,7 +77,7 @@ import time
 #Hyperparameters
 
 hop=192               #hop size (window size = 6*hop)
-sr=24000              #sampling rate
+sr=16000              #sampling rate
 min_level_db=-100     #reference values to normalize data
 ref_level_db=20
 
@@ -190,8 +190,8 @@ def tospec(data):
   return specs
 
 #Generate multiple spectrograms with a determined length from single wav file
-def tospeclong(path, length=4*24000):
-  x, sr = librosa.load(path,sr=24000)
+def tospeclong(path, length=4*16000):
+  x, sr = librosa.load(path,sr=16000)
   x,_ = librosa.effects.trim(x)
   loudls = librosa.effects.split(x, top_db=50)
   xls = np.array([])
@@ -264,12 +264,12 @@ def splitcut(data):
 
 #MALE1
 awv = audio_array('../content/cmu_us_clb_arctic/wav')                               #get waveform array from folder containing wav files
-awv = audio_array('../content/vcc2020_training/SEM2')  
+#awv = audio_array('../content/vcc2020_training/SEM2')  
 aspec = tospec(awv)                                                                 #get spectrogram array
 adata = splitcut(aspec)                                                             #split spectrogams to fixed length
 #FEMALE1
 bwv = audio_array('../content/cmu_us_bdl_arctic/wav')
-awv = audio_array('../content/vcc2020_training/SEF2')  
+#awv = audio_array('../content/vcc2020_training/SEF2')  
 bspec = tospec(bwv)
 bdata = splitcut(bspec)
 # #MALE2
@@ -895,7 +895,7 @@ def towave(spec, name, path='../content/results/', show=False):
 
 #Wav to wav conversion
 
-wv, sr = librosa.load(librosa.util.example_audio_file(), sr=24000)  #Load waveform
+wv, sr = librosa.load(librosa.util.example_audio_file(), sr=16000)  #Load waveform
 print(wv.shape)
 speca = prep(wv)                                                    #Waveform to Spectrogram
 
