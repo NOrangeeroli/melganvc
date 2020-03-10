@@ -642,10 +642,10 @@ def save_test_image_full(path,epoch):
   plt.savefig(path+'/'+str(epoch)+'-mel.png')
 
 #Save in training loop
-def save_end(epoch,gloss,closs,mloss,n_save=3,save_path='../content/'):                 #use custom save_path (i.e. Drive '../content/drive/My Drive/')
+def save_end(epoch,gloss,closs,mloss,n_save=3,save_path='../content/results/'):                 #use custom save_path (i.e. Drive '../content/drive/My Drive/')
   if epoch % n_save == 0:
     print('Saving...')
-    path = f'{save_path}/MELGANVC-{str(gloss)[:9]}-{str(closs)[:9]}-{str(mloss)[:9]}'
+    path = f'{save_path}/MELGANVC-{str(epoch)}-{str(gloss)[:9]}-{str(closs)[:9]}-{str(mloss)[:9]}'
     os.mkdir(path)
     gen.save_weights(path+'/gen.h5')
     critic.save_weights(path+'/critic.h5')
@@ -861,7 +861,7 @@ def chopspec(spec):
   return np.array(dsa, dtype=np.float32)
 
 #Converting from source Spectrogram to target Spectrogram
-def towave(spec, name, path='../content/', show=False):
+def towave(spec, name, path='../content/results/', show=False):
   specarr = chopspec(spec)
   print(specarr.shape)
   a = specarr
@@ -902,4 +902,4 @@ plt.imshow(np.flip(speca, axis=0), cmap=None)
 plt.axis('off')
 plt.show()
 
-abwv = towave(speca, name='FILENAME1', path='../content/')           #Convert and save wav
+abwv = towave(speca, name='FILENAME1', path='../content/results')           #Convert and save wav
