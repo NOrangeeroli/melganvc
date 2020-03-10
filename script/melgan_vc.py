@@ -190,8 +190,8 @@ def tospec(data):
   return specs
 
 #Generate multiple spectrograms with a determined length from single wav file
-def tospeclong(path, length=4*16000):
-  x, sr = librosa.load(path,sr=16000)
+def tospeclong(path, length=4*24000):
+  x, sr = librosa.load(path,sr=24000)
   x,_ = librosa.effects.trim(x)
   loudls = librosa.effects.split(x, top_db=50)
   xls = np.array([])
@@ -803,7 +803,7 @@ def train(epochs, batch_size=16, lr=0.0001, n_save=6, gupt=5):
             c += 1
             g += 1
 
-            if batchi%600==0:
+            if batchi%100==0:
                 print(f'[Epoch {epoch}/{epochs}] [Batch {batchi}] [D loss f: {np.mean(df_list[-g:], axis=0)} ', end='')
                 print(f'r: {np.mean(dr_list[-g:], axis=0)}] ', end='')
                 print(f'[G loss: {np.mean(g_list[-g:], axis=0)}] ', end='')
@@ -811,10 +811,10 @@ def train(epochs, batch_size=16, lr=0.0001, n_save=6, gupt=5):
                 print(f'[LR: {lr}]')
                 g = 0
             nbatch=batchi
-
-        print(f'Time/Batch {(time.time()-bef)/nbatch}')
-        save_end(epoch,np.mean(g_list[-n_save*c:], axis=0),np.mean(df_list[-n_save*c:], axis=0),np.mean(id_list[-n_save*c:], axis=0),n_save=n_save)
-        print(f'Mean D loss: {np.mean(df_list[-c:], axis=0)} Mean G loss: {np.mean(g_list[-c:], axis=0)} Mean ID loss: {np.mean(id_list[-c:], axis=0)}')
+        if epoch%5==0:
+          print(f'Time/Batch {(time.time()-bef)/nbatch}')
+          save_end(epoch,np.mean(g_list[-n_save*c:], axis=0),np.mean(df_list[-n_save*c:], axis=0),np.mean(id_list[-n_save*c:], axis=0),n_save=n_save)
+          print(f'Mean D loss: {np.mean(df_list[-c:], axis=0)} Mean G loss: {np.mean(g_list[-c:], axis=0)} Mean ID loss: {np.mean(id_list[-c:], axis=0)}')
         c = 0
 
 #Build models and initialize optimizers
@@ -895,7 +895,7 @@ def towave(spec, name, path='../content/results/', show=False):
 
 #Wav to wav conversion
 
-wv, sr = librosa.load(librosa.util.example_audio_file(), sr=16000)  #Load waveform
+wv, sr = librosa.load(librosa.util.example_audio_file(), sr=24000)  #Load waveform
 print(wv.shape)
 speca = prep(wv)                                                    #Waveform to Spectrogram
 
