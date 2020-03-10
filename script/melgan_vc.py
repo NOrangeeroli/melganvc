@@ -621,6 +621,24 @@ def testgena():
     dsa.append(im)
   return np.array(dsa, dtype=np.float32)
 
+
+def testgenb():
+  sw = True
+  while sw:
+    a = np.random.choice(bspec)
+    if a.shape[1]//shape!=1:
+      sw=False
+  dsa = []
+  if a.shape[1]//shape>6:
+    num=6
+  else:
+    num=a.shape[1]//shape
+  rn = np.random.randint(a.shape[1]-(num*shape))
+  for i in range(num):
+    im = a[:,rn+(i*shape):rn+(i*shape)+shape]
+    im = np.reshape(im, (im.shape[0],im.shape[1],1))
+    dsa.append(im)
+  return np.array(dsa, dtype=np.float32)
 #Show results mid-training
 def save_test_image_full(path,epoch):
   a = testgena()
