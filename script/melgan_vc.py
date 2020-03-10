@@ -77,7 +77,7 @@ import time
 #Hyperparameters
 
 hop=192               #hop size (window size = 6*hop)
-sr=16000              #sampling rate
+sr=24000              #sampling rate
 min_level_db=-100     #reference values to normalize data
 ref_level_db=20
 
@@ -264,10 +264,12 @@ def splitcut(data):
 
 #MALE1
 awv = audio_array('../content/cmu_us_clb_arctic/wav')                               #get waveform array from folder containing wav files
+awv = audio_array('../content/vcc2020_training/SEM2')  
 aspec = tospec(awv)                                                                 #get spectrogram array
 adata = splitcut(aspec)                                                             #split spectrogams to fixed length
 #FEMALE1
 bwv = audio_array('../content/cmu_us_bdl_arctic/wav')
+awv = audio_array('../content/vcc2020_training/SEF2')  
 bspec = tospec(bwv)
 bdata = splitcut(bspec)
 # #MALE2
