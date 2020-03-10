@@ -19,10 +19,10 @@ Original file is located at
 # import tensorflow as tf
 # !pip install soundfile                    #to save wav files
 # !pip install --no-deps torchaudio
-
-# import tensorflow as tf
-# print(tf.__version__)
-
+from __future__ import print_function, division
+import tensorflow as tf
+print(tf.__version__)
+import pdb
 #Connecting Drive to save model checkpoints during training and to use custom data, uncomment if needed
 
 # import os
@@ -49,12 +49,11 @@ Original file is located at
 
 #Imports
 
-from __future__ import print_function, division
 from glob import glob
 import scipy
 import soundfile as sf
 import matplotlib.pyplot as plt
-from IPython.display import clear_output
+#from IPython.display import clear_output
 from tensorflow.keras.layers import Input, Dense, Reshape, Flatten, Concatenate, Conv2D, Conv2DTranspose, GlobalAveragePooling2D, UpSampling2D, LeakyReLU, ReLU, Add, Multiply, Lambda, Dot, BatchNormalization, Activation, ZeroPadding2D, Cropping2D, Cropping1D
 from tensorflow.keras.models import Sequential, Model, load_model
 from tensorflow.keras.optimizers import Adam
@@ -73,7 +72,7 @@ import librosa.display
 from librosa.feature import melspectrogram
 import os
 import time
-import IPython
+#import IPython
 
 #Hyperparameters
 
